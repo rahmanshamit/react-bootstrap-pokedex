@@ -1,0 +1,16 @@
+.App {
+  padding-top: 6rem;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: #ef5350 !important;
+}
+
+.card-header {
+  text-align: center;
+}
+
+.card-img-top {
+  width: 40%;
+}
