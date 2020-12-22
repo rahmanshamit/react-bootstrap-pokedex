@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const TYPE_COLORS = {
     bug: 'B1C12E',
@@ -47,7 +48,12 @@ export default class PokemonCard extends Component {
 
         const imageUrl = pokemonRes.data.sprites.front_default;
 
-        this.setState({name, imageUrl});
+        const hp = pokemonRes.data.stats[0].base_stat;
+        const attack = pokemonRes.data.stats[1].base_stat;
+        const defense = pokemonRes.data.stats[2].base_stat;
+        const speed = pokemonRes.data.stats[5].base_stat;
+
+        this.setState({name, imageUrl, stats:{hp, attack, defense, speed}});
     }
 
 
@@ -55,10 +61,16 @@ export default class PokemonCard extends Component {
 
         return (
             <div className="col-md-4 col-sm-6 mb-5">
-                <div className="card">
+                <div className="card shadow">
                     <div className="card-header">{this.state.name}</div>
                     <div class="text-center">
-                    <img class="card-img-top center-block" src={this.state.imageUrl} alt="Card image cap"></img>
+                    <img class="card-img-top center-block" src={this.state.imageUrl} alt="Card image cap"></img> 
+                    </div>
+                    <div class="card-body">
+                     <ProgressBar variant="success" now={this.state.stats.hp} label="HP" />
+                     <ProgressBar variant="danger" now={this.state.stats.attack} label="ATTACK" />
+                     <ProgressBar variant="info" now={this.state.stats.defense} label="DEFENCE" />
+                     <ProgressBar variant="warning" now={this.state.stats.speed} label="SPEED" />
                     </div>
                 </div>
             </div>

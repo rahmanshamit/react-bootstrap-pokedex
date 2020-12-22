@@ -13,4 +13,14 @@
 
 .card-img-top {
   width: 40%;
+  transition: 0.5s;
+}
+
+.card-img-top:hover {
+  width: 50%;
+}
+
+.progress {
+  height: 20px;
+  margin-bottom: 8px;
 }
