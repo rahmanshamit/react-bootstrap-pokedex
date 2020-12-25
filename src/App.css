@@ -7,17 +7,39 @@
   background-color: #ef5350 !important;
 }
 
+
+.card {
+  border-radius: 0.8rem;
+  border: 3px solid;
+}
+
 .card-header {
   text-align: center;
+  text-transform: uppercase;
 }
 
 .card-img-top {
   width: 40%;
   transition: 0.5s;
+  border-radius: 50%;
+  margin-top: 20px;
 }
 
 .card-img-top:hover {
-  width: 50%;
+  width: 55%;
+  cursor: pointer;
+}
+
+
+.poke-description {
+  font-size: 12px;
+  font-weight: bold;
+  color: #555353;
+}
+
+
+.badge {
+  margin-bottom: 20px;
 }
 
 .progress {

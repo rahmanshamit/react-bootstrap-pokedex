@@ -34,7 +34,9 @@ export default class PokemonCard extends Component {
             defense: '',
             speed: ''
           },
-        types: []
+        types: [],
+        description: '',
+        cardColor:''
     };
 
     async componentDidMount(){
@@ -43,8 +45,12 @@ export default class PokemonCard extends Component {
 
         const pokemonIndex = url.split('/')[url.split('/').length - 2];
         const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`;
+        const pokemonSpeciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonIndex}/`;
 
         const pokemonRes = await axios.get(pokemonUrl);
+        const pokemonSpeciesRes = await axios.get(pokemonSpeciesUrl);
+
+        const description = pokemonSpeciesRes.data.flavor_text_entries[0].flavor_text;
 
         const imageUrl = pokemonRes.data.sprites.front_default;
 
@@ -53,7 +59,11 @@ export default class PokemonCard extends Component {
         const defense = pokemonRes.data.stats[2].base_stat;
         const speed = pokemonRes.data.stats[5].base_stat;
 
-        this.setState({name, imageUrl, stats:{hp, attack, defense, speed}});
+        const types = pokemonRes.data.types.map(type => type.type.name);
+
+        const cardColor = pokemonRes.data.types[0].type.name;
+
+        this.setState({name, imageUrl, stats:{hp, attack, defense, speed}, types, description, cardColor});
     }
 
 
@@ -61,17 +71,33 @@ export default class PokemonCard extends Component {
 
         return (
             <div className="col-md-4 col-sm-6 mb-5">
-                <div className="card shadow">
+                <div className="card shadow" style={{borderColor: `#${TYPE_COLORS[this.state.cardColor]}`}}>
                     <div className="card-header">{this.state.name}</div>
                     <div class="text-center">
-                    <img class="card-img-top center-block" src={this.state.imageUrl} alt="Card image cap"></img> 
+                    <img class="card-img-top center-block" style={{backgroundColor: `#${TYPE_COLORS[this.state.cardColor]}`}} 
+                    src={this.state.imageUrl} alt="Card image cap"></img>
                     </div>
                     <div class="card-body">
+                    <p className="poke-description">{this.state.description}</p>
+                    {this.state.types.map(type => (
+                     <span key={type} className="badge badge-pill mr-1"
+                      style={{
+                        backgroundColor: `#${TYPE_COLORS[type]}`,
+                        color: 'white'
+                      }}>
+                          {type
+                        .toLowerCase()
+                        .split(' ')
+                        .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+                        .join(' ')}
+                    </span>
+                  ))}
                      <ProgressBar variant="success" now={this.state.stats.hp} label="HP" />
                      <ProgressBar variant="danger" now={this.state.stats.attack} label="ATTACK" />
                      <ProgressBar variant="info" now={this.state.stats.defense} label="DEFENCE" />
                      <ProgressBar variant="warning" now={this.state.stats.speed} label="SPEED" />
                     </div>
+                
                 </div>
             </div>
         )
