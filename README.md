@@ -1,6 +1,9 @@
 # Check it out:
 https://react-dex-1.herokuapp.com/
 
+Pokedex that pulls data from the free Pokemon API using ReactJS. This is mainly for bootstrap, api and components practice, 
+and I also wanted to build a clean and fun UI. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
