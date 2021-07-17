@@ -1,5 +1,4 @@
 # Check it out:
-https://react-dex-1.herokuapp.com/
 
 Pokedex that pulls data from the free Pokemon API using ReactJS. This is mainly for bootstrap, api and components practice, 
 and I also wanted to build a clean and fun UI. Since it's a free API, the calls are limited by design, so not all of the 151 pokemon shows up, just the first 20 does I think.
